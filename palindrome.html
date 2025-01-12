@@ -1,0 +1,101 @@
+///////////MY CUSTOM SEPARATOR IS SO COOL///////////////////////////////////////////////////////////////////////////////
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h4>&lt;description></h4>
+    <h3>Palindromes are cool!</h3>
+    <p>For this program, you will check if the user's input is in fact
+      a palindrome (e.g. ABBA, or racecar, or tacocat). When checking if
+      something is a palindrome, you typically strip out any non-letter
+      symbols, including whitespace characters (whitespace characters
+      include actual spaces, a return/enter, and tabs).
+    </p>
+
+    <p>We are going to do two versions: an easy (well, easier) and a hard
+      version.
+    </p>
+    <h4>The Easy Version</h4>
+    <p>For this version, check the user input to see if it's a palindrome.
+      Assume that there are only letters in the input. <strong>However,
+      it should not matter if the user entered lower or upper case
+      letters. AbBa is still a palindrom, as is Racecar. </strong>
+      For the easy version, you only need to complete the isPalindrome()
+      function that has been setup in the script tag below. Ignore the
+      cleanString() function for now.
+    </p>
+    <h4>The Hard Version</h4>
+    <p>For the second version, we will allow the user to enter
+      punctuation, whitespace characters, etc. and we will still
+      determine if the input is in fact a palindrome. Complete the easy
+      version first since we'll use the code from the easy version in
+      the hard version. <strong>For the hard version, we will strip out
+      the following symbols: space, comma, period, exclamation mark,
+      question mark, colon, and semi-colon. We could add more, but
+      this is enough...</strong>. To complete the hard version, you
+      should only need to write the cleanString() function so that
+      it removes the indicated characters and returns a "cleaned"
+      string. If sent the string "Hey, what is that?", the cleanString()
+      function should return "Heywhatisthat". The cleanString() 
+      function should NOT change the case of any letters; it should
+      only remove the indicated characters.
+    </p>
+
+    <h4>&lt;/description></h4>
+    <input type="text" id="input" onchange="check()">
+    <input type="button" onclick="check()" value="Check Pal">
+
+    <script>
+      function check() {
+        //basic plan
+        //1 get the value from the user
+        //2 clean the string (ignore this step for the first version)
+        //3 check if it's a palindrome and repor the answer
+
+        //1 Get input
+        let value = document.getElementById("input").value;
+
+        //2 Clean string...function returns a cleaned-up version
+        value = cleanString(value)
+
+        //3 Check and report answer
+        if( isPalindrome(value) ) {
+          alert("It looks like " + value + " is a palindrome!");
+        }
+        else {
+          alert("Nope! " + value + " is NOT a palindrome");
+        }
+      }
+
+
+      //This function should return true if the parameter str
+      //is a palindrome and false otherwise
+      function isPalindrome(str) {
+        //it is really bad right now...make it better :)
+        str = str.toLowerCase()
+        let reversed = str.split("").reverse().join("")
+        return str === reversed
+      }
+
+
+      //This function should remove and special characters from
+      //the parameter and return the "cleaned up" version
+      function cleanString(str) {
+        //it is also bad at its job at first...it does no cleaning
+        let cleaned = ""
+        for(let i = 0; i < str.length; i++) {
+            let char = str[i]
+            if((char >= "a" && char <= "z") || (char >= "A" && char <= "Z")) {
+                cleaned += char
+            }
+        }
+        return cleaned
+      }
+    </script>
+  </body>
+</html>
+
