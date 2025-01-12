@@ -1,0 +1,72 @@
+///////////MY CUSTOM SEPARATOR IS SO COOL///////////////////////////////////////////////////////////////////////////////
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <p style="font-weight: bold">For this problem, you want to
+      determine if the user's input contains a 2-digit, base-10 number
+      somewhere in it. For this, it counts as a 2-digit number if it
+      has two digits in a row (must be 0 to 9 for a digit) where the
+      next or previous character is anything except another digit
+      (alternatively, there could be no previous or next character).
+    </p>
+    <p style="background-color: yellow">
+      When the user clicks the button, you should use an alert dialog
+      to let them know the result. You can simply reply with
+      <strong>Works</strong> and <strong>Nope</strong> or something
+      similar...
+    </p>
+    <h3 style="color: green">Things that work:</h3>
+    <ul>
+      <li>23</li>
+      <li>This has number 98 in it</li>
+      <li>45asdf starts with a 2-digit numb</li>
+      <li>This ends with a 2-digit example: ab78</li>
+      <li>1 starts poorly but 45 fixes it...so this should work</li>
+    </ul>
+    <h3 style="color: red">Things that don't work:</h3>
+    <ul>
+      <li>234 doesn't work because the <em>twenty-three</em>
+        has a digit next to it (the 4), and the <em>thirty-four</em>
+        also has a digit next to it (the 2)</li>
+      <li>5 just doesn't have enough didjits</li>
+      <li>9 8 has a space between, so not 2-digits...</li>
+      <li>a4d7asdf has a letter between the two...</li>
+      <li>5.6 has a decimal between the two...</li>
+    </ul>
+
+    <input type="text" id="input" onchange="check()">
+    <input type="button" value="Check for digits" onclick="check()">
+    <script>
+      function check() {
+        const input = document.getElementById("input").value
+        let found = false
+
+        for(let i = 0; i < input.length - 1; i++) {
+            if(isDigit(input[i]) && isDigit(input[i + 1])) {
+                const noBefore = i === 0 || !isDigit(input[i - 1])
+                const noAfter = i + 2 >= input.length || !isDigit(input[i - 1])
+                if(noBefore && noAfter) {
+                    found = true
+                    break
+                }
+            }
+        }
+
+        if(found) {
+            alert("Works")
+        } else {
+            alert("Nope")
+        }
+    }
+
+    function isDigit(char) {
+        return char >= '0' && char <= '9'
+    }
+    </script>
+  </body>
+</html>

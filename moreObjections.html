@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="can" width="600" height="600"></canvas>
+
+
+    <script>
+        let canvas = document.getElementById("can")
+        let context = canvas.getContext("2d")
+
+        class Triangle {
+            constructor(x1, y1, x2, y2, x3, y3) {
+                this.x1 = x1
+                this.y1 = y1
+                this.x2 = x2
+                this.y2 = y2
+                this.x3 = x3
+                this.y3 = y3
+                this.color = `rgb(${Math.random()*256}, ${Math.random()*256}, ${Math.random()*256})`
+                this.subTri1 = undefined
+                this.subTri2 = undefined
+                this.subTri3 = undefined
+                if(Math.abs(x1 - x2) > 10) {
+                    this.subTri1 = new Triangle(x1, y1, (x1 + x2)/2, (y1 + y2)/2, (x1 + x3)/2, (y1 + y3)/2)
+                    this.subTri2 = new Triangle(x2, y2, (x1 + x2)/2, (y1 + y2)/2, (x2 + x3)/2, (y2 + y3)/2)
+                    this.subTri3 = new Triangle(x3, y3, (x3 + x2)/2, (y3 + y2)/2, (x1 + x3)/2, (y1 + y3)/2)
+                }
+            }
+
+            draw() {
+                if(this.subTri1) {
+                    this.subTri1.draw()
+                    this.subTri2.draw()
+                    this.subTri3.draw()
+                } else {
+                context.fillStyle = this.color
+
+                context.beginPath()
+                context.moveTo(this.x1, this.y1)
+                context.lineTo(this.x2, this.y2)
+                context.lineTo(this.x3, this.y3)
+                context.closePath()
+
+                context.fill()
+
+                context.beginPath()
+                context.ellipse(200, 200, 300, 300, 0, 0, 2*Math.PI)
+                context.closePath()
+                context.fill()
+
+                }
+            }
+        }
+
+        let tri = new Triangle( 0, canvas.height, canvas.width/2, 0, canvas.width, canvas.height)
+
+        tri.draw()
+
+    </script>
+</body>
+</html>

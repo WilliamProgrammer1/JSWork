@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let name = {
+            name : "Will",
+            age: 12,
+            friend: {
+                name: "john",
+                age: 100
+            },
+            blah: function(a) {
+                alert(this.age);
+                alert(a);
+            }
+        };
+
+        let newUser = {};
+
+        for(let p in user) {
+            newUser[p] = user[p];
+        }
+
+        newUser.friend.name = "hacked";
+
+        console.log(newUser.name);
+        console.log(user.name);
+
+    </script>
+</body>
+</html>
