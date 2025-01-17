@@ -86,14 +86,14 @@
       //the parameter and return the "cleaned up" version
       function cleanString(str) {
         //it is also bad at its job at first...it does no cleaning
-        let cleaned = ""
+        let clean = ""
         for(let i = 0; i < str.length; i++) {
             let char = str[i]
             if((char >= "a" && char <= "z") || (char >= "A" && char <= "Z")) {
-                cleaned += char
+                clean += char
             }
         }
-        return cleaned
+        return clean
       }
     </script>
   </body>

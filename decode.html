@@ -1,0 +1,83 @@
+///////////MY CUSTOM SEPARATOR IS SO COOL///////////////////////////////////////////////////////////////////////////////
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h4>Description</h4>
+    <p>Enter a message in binary or hex and this will decode it for
+      you and show (via an <strong style="background-color: yellow">
+      alert</strong> dialog) the decoded message in plain English.
+      Enter binary numbers one byte at a time; put spaces between
+      the bytes as a separator (e.g. 01000010 01100101 011...).
+      Enter hex numbers as two-digit hex values (each representing
+      a separate symbol); put spaces between the hex values as a
+      separator (e.g. 4E 4F 50 45).
+    <p>NOTE: These values must come from the
+      <a href="https://www.ascii-code.com/" target="_blank">ASCII table
+      </a>; for example, the binary value associated with A is 01000001
+      while the hex value associated with A is 41 (note that is HEX...
+      the decimal value associated with A is 65).
+    </p>
+    <textarea id="input" cols=40 rows=8></textarea>
+    <br>
+    <input type="button" onclick="fromBinary()"
+              value="Translate From Binary">
+    <input type="button" onclick="fromHex()"
+              value="Translate From Hex">
+    <h4>A Helper Function</h4>
+    <p>Take a look at the String's fromCodePoint() function
+      (click
+      <a href="https://javascript.info/string#comparing-strings"
+      target="_blank">here</a>
+      and then scroll down just a touch). If you send it a number
+      (either a decimal, hex, or binary number), then it will give you
+      back a symbol/letter. The fromCodePoint() function is expecting
+      a string parameter...but formatted in a particular way.
+    </p>
+    <p style="background-color: lightgray">Binary number format for JS:
+       any number starting with 0b</p>
+    <p style="background-color: lightgray">Hex number format for JS:
+       any number starting with 0x</p>
+
+    <script>
+      function fromBinary() {
+        let bin = document.getElementById("input").value;
+        alert("Starting user value, just testing: " + bin);
+
+        //The string's split function will return an array of values.
+        //The values are determined by the separator, the value
+        //passed to the split function. In this case, the values
+        //returned will be the user's numbers since they used a space
+        //as a separator (between the numbers). This is an incredibly
+        //useful and common function.
+        let splitValues = bin.split(" ");
+        let message = ""
+        //This is just looping over the values and seeing if the
+        //split worked...it should have
+        for(let i = 0; i < splitValues.length; i++) {
+          let decimal = parseInt(splitValues[i], 2)
+          message += String.fromCodePoint(decimal)
+        }
+
+        alert("Decoded Message: " + message)
+      }
+
+      function fromHex() {
+        let hex = document.getElementById("input").value
+        let spValues = hex.split(" ")
+        let message = ""
+
+        for(let i = 0; i < spValues.length; i++) {
+            let decimal = parseInt(spValues[i], 16)
+            message += String.fromCodePoint(decimal)
+        }
+        
+        alert("Decoded Message: " + message);
+      }
+    </script>
+  </body>
+</html>
