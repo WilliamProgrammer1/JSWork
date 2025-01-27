@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays and Sorting</title>
+</head>
+<body>
+    <input type="text" id="inputArea" value="enter items here"></input>
+    <br>
+    <input type="button" onclick="addItem()" value="Add Item"></input>
+    <input type="button" onclick="sortList()" value="Sort List"></input>
+    <div id="display">List goes here eventually</div>
+
+
+    <script>
+        let items = []
+
+        function drawListOnPage() {
+            const displayDiv = document.getElementById("display")
+            displayDiv.innerHTML = ""
+
+            const ul = document.createElement("ul")
+            for(let item of items) {
+                const li = document.createElement("li")
+                li.textContent = item
+                ul.appendChild(li)
+            }
+            displayDiv.appendChild(ul)
+        }
+
+
+        function addItem() {
+            const inputField = document.getElementById("inputArea")
+            const newItem = inputField.value.trim()
+
+            if(newItem) {
+                items.push(newItem)
+                drawListOnPage()
+            }
+            inputField.value = ""
+        }
+
+        function sortList() {
+            items.sort((a , b) => a.length - b.length)
+            drawListOnPage()
+        }
+    </script>
+</body>
+</html>
