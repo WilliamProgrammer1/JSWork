@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays and Sorting 2</title>
+</head>
+<body>
+    <h2>Player Management System</h2>
+
+    <label for="nameField">Name: </label>
+    <input type="text" id="nameField">
+    <br>
+
+    <label for="scoreField">Score: </label>
+    <input type="number" id="scoreField">
+    <br>
+
+    <label for="numOfGamesField">Number of Games: </label>
+    <input type="number" id="numOfGamesField">
+    <br>
+
+    <input type="button" onclick="addPlayer()" value="Add Player">
+
+    <br><br>
+
+    <label for="sortHow">Sort By:</label>
+    <select id="sortHow">
+        <option value="score">Score</option>
+        <option value="name">Name</option>
+        <option value="totalGames">Total Games</option>
+    </select>
+
+    <input type="button" onclick="sortPlayers()" value="Sort Players">
+
+    <h2>Player List:</h2>
+    <div id="display">No players added.</div>
+
+
+    <script>
+        let players = []
+
+        class Player {
+            constructor(name, score, totalGames) {
+                this.name = name
+                this.score = parseInt(score)
+                this.totalGames = parseInt(totalGames)
+            }
+        }
+
+        function drawListOnPage() {
+            const disDiv = document.getElementById("display")
+            disDiv.innerHTML = ""
+
+            if(players.length === 0) {
+                disDiv.textContent = "No Players added."
+                return
+            }
+
+            const ul = document.createElement("ul")
+            for(let player of players) {
+                const li = document.createElement("li")
+                li.textContent = `${player.name} - Score: ${player.score}, Games: ${player.totalGames}`
+                ul.appendChild(li)
+            }
+            disDiv.appendChild(ul)
+        }
+
+        function addPlayer() {
+            const name = document.getElementById("nameField").value.trim()
+            const score = document.getElementById("scoreField").value.trim()
+            const totalGames = document.getElementById("numOfGamesField").value.trim()
+
+            if(!name || isNaN(score) || isNaN(totalGames)) {
+                alert("Please fill in all fields")
+                return
+            }
+            const newPlayer = new Player(name, score, totalGames)
+            players.push(newPlayer)
+
+            drawListOnPage()
+
+            document.getElementById("nameField").value = ""
+            document.getElementById("scoreField").value = ""
+            document.getElementById("numOfGamesField").value = ""
+        }
+
+        function sortPlayers() {
+            let sortOp = document.getElementById("sortHow").value
+            
+            if(sortOp === "score") {
+                players.sort((a,b) => b.score - a.score)
+            } else if(sortOp === "name") {
+                players.sort((a,b) => a.name.localeCompare(b.name)) //I had to search up this term\\
+            } else if(sortOp === "totalGames") {
+                players.sort((a,b) => b.totalGames - a.totalGames)
+            }
+            drawListOnPage()
+        }
+    </script>
+</body>
+</html>
